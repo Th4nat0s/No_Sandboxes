@@ -6,6 +6,17 @@
 ; **
 ; ******************************************** 
 
+; Only allow Intel CPUS
+%ifdef NOSB_INTELONLY
+      mov   eax,0
+      cpuid
+      cmp   edx,0x49656E69
+      je    _isintel
+      ret
+_isintel:
+%endif
+
+
 %ifdef NOSB_NOL1ICACHE
 ; Validate that you have L1 Cache.
       mov   edx,0 
