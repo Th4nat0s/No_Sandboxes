@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import random
 
-STRINGS = [ 'NOP_NOSB_RENAMED.exe' , 'WS2_32.dll', 'ntdll.dll', 'kernel32.dll', 'MessageBoxA', 'LoadLibraryA', 'user32.dll' ] 
+STRINGS = [ 'GetTickCount', 'NOP_NOSB_RENAMED.exe' , 'WS2_32.dll', 'ntdll.dll', 'kernel32.dll', 'MessageBoxA', 'LoadLibraryA', 'user32.dll' ] 
 
 def ROR(x, n,bits=32):
     mask = (2L**n) - 1
