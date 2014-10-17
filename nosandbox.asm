@@ -120,7 +120,7 @@ _hyperstr_loopB:              ; Test 4 Chars in EAX
       JB    _isnot_hyperstr
       CMP   AL,122
       JA    _isnot_hyperstr
-      ffSHR   EAX,8             ; Next Char
+      SHR   EAX,8             ; Next Char
       LOOP  _hyperstr_loopB
       ret                     ; Non printable Found
 _isnot_hyperstr:
@@ -133,9 +133,9 @@ _isnot_hyperstr:
 ; ******************************************** 
 
 %ifdef NOSB_HOOKPROC
-	invoke _getdll,HASH_KERNEL32.DLL
- 	invoke _getfunction, eax, HASH_WRITEPROCESSMEMORY
-  cmp dword [eax],0x8B55FF8B
+	invokel _getdll,HASH_KERNEL32.DLL
+ 	invokel _getfunction, eax, HASH_WRITEPROCESSMEMORY
+        cmp dword [eax],0x8B55FF8B
  	je _nosbhookproc
 	ret
 _nosbhookproc:
